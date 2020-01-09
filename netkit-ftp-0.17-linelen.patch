@@ -1,0 +1,22 @@
+--- netkit-ftp-0.17-dist/ftp/ftp_var.h	2012-08-01 14:25:10.627248809 +0200
++++ netkit-ftp-0.17-new/ftp/ftp_var.h	2012-08-01 14:29:51.756774406 +0200
+@@ -42,6 +42,7 @@
+ 
+ #include <setjmp.h>
+ #include <sys/param.h>
++#include <limits.h>
+ #define NTRANS_MAX	64
+ 
+ /*
+@@ -108,9 +109,9 @@ Extern int	ftp_port;	/* htons'd port num
+ 
+ Extern sigjmp_buf toplevel;	/* non-local goto stuff for cmd scanner */
+ 
+-Extern char	line[200];	/* input line buffer */
++Extern char	line[PATH_MAX + 200];	/* input line buffer */
+ Extern char	*stringbase;	/* current scan point in line buffer */
+-Extern char	argbuf[200];	/* argument storage buffer */
++Extern char	argbuf[PATH_MAX + 200];	/* argument storage buffer */
+ Extern char	*argbase;	/* current storage point in arg buffer */
+ Extern int	cpend;		/* flag: if != 0, then pending server reply */
+ Extern int	mflag;		/* flag: if != 0, then active multi command */

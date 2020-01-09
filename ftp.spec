@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 51.3%{?dist}
+Release: 52%{?dist}
 License: BSD with advertising
 Group: Applications/Internet
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
@@ -32,6 +32,10 @@ Patch23: netkit-ftp-0.17-arg_max.patch
 Patch24: netkit-ftp-0.17-case.patch
 Patch25: netkit-ftp-0.17-chkmalloc.patch
 Patch26: netkit-ftp-0.17-arg_max1.patch
+Patch27: netkit-ftp-0.17-active-mode-option.patch
+Patch28: netkit-ftp-0.17-linelen.patch
+Patch29: netkit-ftp-0.17-lsn-timeout.patch
+Patch30: netkit-ftp-0.17-commands-leaks.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, readline-devel, ncurses-devel
@@ -72,6 +76,10 @@ file transfers.
 %patch24 -p1 -b .case
 %patch25 -p1 -b .chkmalloc
 %patch26 -p1 -b .arg_max1
+%patch27 -p1 -b .activemode
+%patch28 -p1 -b .linelen
+%patch29 -p1 -b .lsn-timeout
+%patch30 -p1 -b .commands-leaks
 
 %build
 sh configure --with-c-compiler=gcc --enable-ipv6
@@ -105,6 +113,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Mon Sep 24 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-52
+- Add listening timeout to avoid hanging up when ftp is executed in active mode
+  and ftp-data port is blocked (#852636)
+- Plug memleaks in append, put and send commands (#786004)
+
+* Wed Aug 22 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-52
+- Add support for active mode (#849940)
+- Increase ftp client command line limit (#665337)
+
 * Fri Jul 27 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-51.3
 - add -fno-strict-aliasing to silence gcc warnings
 - Related: #783868
