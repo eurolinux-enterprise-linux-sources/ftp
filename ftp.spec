@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 53%{?dist}
+Release: 54%{?dist}
 License: BSD with advertising
 Group: Applications/Internet
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
@@ -36,6 +36,7 @@ Patch27: netkit-ftp-0.17-active-mode-option.patch
 Patch28: netkit-ftp-0.17-linelen.patch
 Patch29: netkit-ftp-0.17-lsn-timeout.patch
 Patch30: netkit-ftp-0.17-commands-leaks.patch
+Patch31: netkit-ftp-0.17-getlogin.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, readline-devel, ncurses-devel
@@ -80,6 +81,7 @@ file transfers.
 %patch28 -p1 -b .linelen
 %patch29 -p1 -b .lsn-timeout
 %patch30 -p1 -b .commands-leaks
+%patch31 -p1 -b .getlogin
 
 %build
 sh configure --with-c-compiler=gcc --enable-ipv6
@@ -113,6 +115,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Mon May 13 2013 Jan Synáček <jsynacek@redhat.com> - 0.17-54
+- Fix: FTP client does not expand home directory correctly after sudo or su
+- Resolves: #861113
+
 * Tue Oct 30 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-53
 - Fix buffer overflow when processing macro (update linelen patch)
 - Resolves: #869858
