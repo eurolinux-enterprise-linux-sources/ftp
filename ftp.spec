@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 51.1%{?dist}.1
+Release: 51.3%{?dist}
 License: BSD with advertising
 Group: Applications/Internet
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
@@ -31,8 +31,7 @@ Patch22: netkit-ftp-0.17-bitrate.patch
 Patch23: netkit-ftp-0.17-arg_max.patch
 Patch24: netkit-ftp-0.17-case.patch
 Patch25: netkit-ftp-0.17-chkmalloc.patch
-Patch26: netkit-ftp-0.17-linelen.patch
-Patch27: netkit-ftp-0.17-commands-leaks.patch
+Patch26: netkit-ftp-0.17-arg_max1.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glibc-devel, readline-devel, ncurses-devel
@@ -72,8 +71,7 @@ file transfers.
 %patch23 -p1 -b .arg_max
 %patch24 -p1 -b .case
 %patch25 -p1 -b .chkmalloc
-%patch26 -p1 -b .linelen
-%patch27 -p1 -b .commands-leak
+%patch26 -p1 -b .arg_max1
 
 %build
 sh configure --with-c-compiler=gcc --enable-ipv6
@@ -107,17 +105,13 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man5/netrc.*
 
 %changelog
-* Mon Nov 05 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-51.1.1
-- Fix NVR
+* Fri Jul 27 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-51.3
+- add -fno-strict-aliasing to silence gcc warnings
+- Related: #783868
 
-* Wed Oct 31 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-53
-- Add -fno-strict-aliasing to silence gcc warnings
-
-* Tue Oct 30 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-52
-- Increase ftp client command line limit (#871060)
-- Plug memleaks in append, put and send commands (#871072)
-- Fix buffer overflow when processing macro (update linelen patch) (#871547)
-- Correctly set the release number
+* Thu Jul 26 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-51.2
+- fix 'Out of memory' message when stacksize is set to unlimited
+- Resolves: #783868
 
 * Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 0.17-51.1
 - Rebuilt for RHEL 6
