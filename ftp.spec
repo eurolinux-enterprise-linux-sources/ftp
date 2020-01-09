@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 52%{?dist}
+Release: 53%{?dist}
 License: BSD with advertising
 Group: Applications/Internet
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
@@ -113,6 +113,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Tue Oct 30 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-53
+- Fix buffer overflow when processing macro (update linelen patch)
+- Resolves: #869858
+
 * Mon Sep 24 2012 Jan Synáček <jsynacek@redhat.com> - 0.17-52
 - Add listening timeout to avoid hanging up when ftp is executed in active mode
   and ftp-data port is blocked (#852636)
