@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 66%{?dist}
+Release: 67%{?dist}
 License: BSD with advertising
 Group: Applications/Internet
 Source0: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
@@ -40,6 +40,7 @@ Patch31: netkit-ftp-0.17-commands-leaks.patch
 Patch32: netkit-ftp-0.17-lsn-timeout.patch
 Patch33: netkit-ftp-0.17-getlogin.patch
 Patch34: netkit-ftp-0.17-token.patch
+Patch35: netkit-ftp-0.17-arg_max1.patch
 
 BuildRequires: glibc-devel, readline-devel, ncurses-devel
 
@@ -87,6 +88,7 @@ file transfers.
 %patch32 -p1 -b .lsn-timeout
 %patch33 -p1 -b .getlogin
 %patch34 -p1 -b .token
+%patch35 -p1 -b .arg_max1
 
 %build
 sh configure --with-c-compiler=gcc --enable-ipv6
@@ -115,6 +117,9 @@ make INSTALLROOT=${RPM_BUILD_ROOT} install
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Wed Feb  3 2016 Jan Synáček <jsynacek@redhat.com> - 0.17-67
+- fix 'Out of memory' message when stacksize is set to unlimited (#1304064)
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.17-66
 - Mass rebuild 2014-01-24
 
