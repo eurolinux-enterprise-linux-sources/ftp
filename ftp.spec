@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 64%{?dist}
+Release: 66%{?dist}
 License: BSD with advertising
 Group: Applications/Internet
 Source0: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
@@ -115,6 +115,12 @@ make INSTALLROOT=${RPM_BUILD_ROOT} install
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.17-66
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.17-65
+- Mass rebuild 2013-12-27
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.17-64
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
